@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  > * {
+    width: 100%;
+  }
+
+  .errorText {
+    color: red;
+    font-weight: 500;
+    margin-top: 2px;
+    font-size: x-small;
+  }
+
+  .trigger {
+    &.error {
+      box-shadow: inset 0 0 0 1px red;
+    }
+  }
+
+  .required {
+    color: red;
+  }
+
+  .label {
+    margin-bottom: 4px;
+  }
+}

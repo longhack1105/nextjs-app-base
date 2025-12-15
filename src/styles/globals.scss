@@ -1,0 +1,130 @@
+@import "@radix-ui/themes/styles.css";
+
+:root {
+}
+
+html {
+  background: #fff;
+  height: 100vh;
+  width: 100vh;
+}
+
+html,
+body {
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+  overflow-wrap: break-word;
+  margin: 0;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgb(165, 165, 165);
+  border-radius: 4px;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+//#region toast
+.toast-progress-error {
+  background: #f85050;
+}
+
+.toast-progress-success {
+  background: #51cc57;
+}
+
+.toast-progress-info {
+  background: #5099f8;
+}
+
+.toast-progress-warn {
+  background: #ff8800;
+}
+
+.toastify-custom {
+  color: var(--light);
+  text-align: center;
+  padding: 6px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 12px !important;
+  min-height: max-content;
+  display: grid;
+  .Toastify__toast-body {
+    .Toastify__toast-icon {
+      font-size: 18px;
+      width: max-content;
+      margin-right: 6px;
+    }
+    padding: 12px;
+    line-height: 24px;
+    font-size: 14px;
+  }
+}
+
+.toastify-custom-success {
+  color: #51cc57;
+  text-align: center;
+  padding: 0px;
+  line-height: 12px;
+  background-color: #103325;
+  border-radius: 4px;
+}
+
+.toastify-custom-info {
+  color: #5099f8;
+  text-align: center;
+  padding: 0px;
+  line-height: 12px;
+  background-color: #101433;
+  border-radius: 4px;
+}
+
+.toastify-custom-error {
+  color: #f85050;
+  text-align: center;
+  padding: 0px;
+  line-height: 12px;
+  background-color: #331010;
+  border-radius: 4px;
+}
+
+.toastify-custom-warn {
+  color: #ff8800;
+  text-align: center;
+  padding: 0px;
+  line-height: 12px;
+  background-color: #332210;
+  border-radius: 4px;
+}
+
+//#endregion toast
+
+//#region radix
+.rt-SelectTrigger:where(.rt-r-size-3):where(:not(.rt-variant-ghost)) {
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+}
+//#endregion radix

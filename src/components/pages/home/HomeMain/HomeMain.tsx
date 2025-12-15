@@ -8,7 +8,7 @@ import Link from "next/link";
 import Button from "@/components/common/controls/Button";
 import FormTest from "../FormTest";
 
-function HomeMain({}: PropsHomeMain) {
+function HomeMain({ }: PropsHomeMain) {
   const router = useRouter();
 
   return (

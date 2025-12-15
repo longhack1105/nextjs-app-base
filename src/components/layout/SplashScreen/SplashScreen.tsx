@@ -12,7 +12,7 @@ import { enumDeviceType, setDeviceType, setLoading } from "@/redux/reducer/site"
 import clsx from "clsx";
 import Lottie from "react-lottie";
 
-function SplashScreen({}: PropsSplashScreen) {
+function SplashScreen({ }: PropsSplashScreen) {
   const { loading } = useSelector((state: RootState) => state.site);
   const { token, isLogin } = useSelector((state: RootState) => state.auth);
   const { infoUser } = useSelector((state: RootState) => state.user);
@@ -31,16 +31,21 @@ function SplashScreen({}: PropsSplashScreen) {
     (async () => {
       // Lấy dữ liệu authen-data rồi gắn vào store
       const state = await getItemStorage(authenData);
-      if (!!state) {
-        const bytes = CryptoJS.AES.decrypt(state, process.env.NEXT_PUBLIC_KEY_CERT!);
-        const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        store.dispatch(setToken(decryptedData.token));
-        store.dispatch(
-          setInfoUser({
-            ...decryptedData.infoUser,
-          })
-        );
-        store.dispatch(setStateLogin(decryptedData.isLogin));
+      const key = process.env.NEXT_PUBLIC_KEY_CERT;
+      if (!!state && key) {
+        try {
+          const bytes = CryptoJS.AES.decrypt(state, key);
+          const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+          store.dispatch(setToken(decryptedData.token));
+          store.dispatch(
+            setInfoUser({
+              ...decryptedData.infoUser,
+            })
+          );
+          store.dispatch(setStateLogin(decryptedData.isLogin));
+        } catch (error) {
+          console.error("Failed to decrypt auth data:", error);
+        }
       }
       store.dispatch(setLoading(false));
 
@@ -60,16 +65,19 @@ function SplashScreen({}: PropsSplashScreen) {
 
   useEffect(() => {
     if (!loading) {
-      const ciphertext = CryptoJS?.AES?.encrypt(
-        JSON.stringify({
-          token: token,
-          isLogin: isLogin,
-          infoUser: infoUser,
-        }),
-        process.env.NEXT_PUBLIC_KEY_CERT!
-      ).toString();
-      // Lưu dữ liệu authen-data
-      setItemStorage(authenData, ciphertext);
+      const key = process.env.NEXT_PUBLIC_KEY_CERT;
+      if (key) {
+        const ciphertext = CryptoJS?.AES?.encrypt(
+          JSON.stringify({
+            token: token,
+            isLogin: isLogin,
+            infoUser: infoUser,
+          }),
+          key
+        ).toString();
+        // Lưu dữ liệu authen-data
+        setItemStorage(authenData, ciphertext);
+      }
     }
   }, [token, isLogin, loading, infoUser]);
 
